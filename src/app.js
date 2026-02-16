@@ -7,6 +7,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// MIDDLEWARE Static files folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
 app.use('/', router);
