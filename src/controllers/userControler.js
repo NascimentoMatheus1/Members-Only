@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { body, validationResult, matchedData } = require('express-validator');
 
 const getNewUser = (req, res) => {
-    res.render('sign_up', { title: 'Sign Up' });
+    res.render('pages/sign_up', { title: 'Sign Up' });
 };
 
 const validateNewUser = [
@@ -79,7 +79,7 @@ const saveNewUserPost = [
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).render('sign_up', {
+                return res.status(400).render('pages/sign_up', {
                     title: 'Fill all inputs correctly.',
                     errors: errors.array(),
                 });
