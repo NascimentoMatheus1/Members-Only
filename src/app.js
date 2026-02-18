@@ -9,6 +9,8 @@ app.set('view engine', 'ejs');
 
 // MIDDLEWARE Static files folder
 app.use(express.static(path.join(__dirname, 'public')));
+// FORM
+app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
 app.use('/', router);
