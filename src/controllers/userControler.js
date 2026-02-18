@@ -79,7 +79,7 @@ const saveNewUserPost = [
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).render('pages/sign_up', {
+                return res.status(400).render('sign_up', {
                     title: 'Fill all inputs correctly.',
                     errors: errors.array(),
                 });

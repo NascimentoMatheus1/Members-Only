@@ -1,0 +1,16 @@
+<nav class="navbar">
+    <div class="nav-logo"><a href="/">Members Only</a></div>
+
+    <ul class="nav-links">
+        <li><a href="/">Posts</a></li>
+        <% if (locals.currentUser) { %>
+            <li><a href="/profile">
+                    <%= currentUser.name %>
+                </a></li>
+            <li><a href="/logout">Logout</a></li>
+            <% } else { %>
+                <li><a href="/sign-up">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+                <% }%>
+    </ul>
+</nav>
