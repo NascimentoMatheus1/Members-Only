@@ -6,12 +6,13 @@ const router = Router();
 router.get('/', (req, res) => {
     res.render('pages/index', {
         title: 'Home',
-        currentUser: { name: 'matheus', membership_status: false },
     });
 });
 router.get('/membership', userControler.getNewMember);
 router.get('/sign-up', userControler.getNewUser);
+router.get('/login', userControler.getLoginForm);
 router.post('/sign-up/save', userControler.saveNewUserPost);
 router.post('/membership/check', userControler.checkMembershipAnswerPOST);
+router.post('/login', userControler.checkLoginPOST);
 
 module.exports = router;

@@ -10,6 +10,43 @@ const getNewUser = (req, res) => {
     res.render('pages/sign_up', { title: 'Sign Up' });
 };
 
+const getLoginForm = (req, res) => {
+    res.render('pages/login_form', { title: 'Log in' });
+};
+
+// Login POST
+
+const validateLoginBody = [
+    body('username')
+        .escape()
+        .notEmpty()
+        .withMessage('Please input your username'),
+    body('password')
+        .escape()
+        .notEmpty()
+        .withMessage('Please input your password'),
+    ,
+];
+
+const checkLoginPOST = [
+    validateLoginBody,
+    async (req, res) => {
+        try {
+            const erros = validationResult(req);
+            if (!erros.isEmpty()) {
+                return res.status(400).render('pages/login_form', {
+                    title: 'Log in',
+                    erros: erros.array(),
+                });
+            }
+
+            res.redirect('/');
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+];
+
 // Middleware - Validate new user form inputs
 const validateNewUser = [
     body('firstname')
@@ -129,7 +166,6 @@ const checkMembershipAnswerPOST = [
                 });
             }
 
-            
             // db.updateUserBecomeMember(currentUser.id);
 
             res.redirect('/');
@@ -142,6 +178,8 @@ const checkMembershipAnswerPOST = [
 module.exports = {
     getNewMember,
     getNewUser,
+    getLoginForm,
     saveNewUserPost,
     checkMembershipAnswerPOST,
+    checkLoginPOST,
 };
