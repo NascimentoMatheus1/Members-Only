@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+
+
 /* navBar Partials */
 
 .navbar {
