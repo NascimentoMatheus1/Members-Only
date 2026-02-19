@@ -2,10 +2,15 @@ const db = require('../db/queries');
 const bcrypt = require('bcrypt');
 const { body, validationResult, matchedData } = require('express-validator');
 
+const getNewMember = (req, res) => {
+    res.render('pages/membership', { title: 'Become a member' });
+};
+
 const getNewUser = (req, res) => {
     res.render('pages/sign_up', { title: 'Sign Up' });
 };
 
+// Middleware - Validate new user form inputs
 const validateNewUser = [
     body('firstname')
         .trim()
@@ -73,13 +78,14 @@ const validateNewUser = [
         ),
 ];
 
+// New user POST
 const saveNewUserPost = [
     validateNewUser,
     async (req, res) => {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).render('sign_up', {
+                return res.status(400).render('pages/sign_up', {
                     title: 'Fill all inputs correctly.',
                     errors: errors.array(),
                 });
@@ -99,4 +105,43 @@ const saveNewUserPost = [
     },
 ];
 
-module.exports = { getNewUser, saveNewUserPost };
+// Middleware - check riddle answer input
+const validateRiddleAnswer = [
+    body('answer')
+        .trim()
+        .escape()
+        .notEmpty()
+        .withMessage('Please input the answer.')
+        .custom((answer) => answer.toLowerCase() === 'keyboard')
+        .withMessage('Wrong answer ! Please, try again.'),
+];
+
+// Check membership POST
+const checkMembershipAnswerPOST = [
+    validateRiddleAnswer,
+    async (req, res) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).render('pages/membership', {
+                    title: 'Try again',
+                    errors: errors.array(),
+                });
+            }
+
+            
+            // db.updateUserBecomeMember(currentUser.id);
+
+            res.redirect('/');
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+];
+
+module.exports = {
+    getNewMember,
+    getNewUser,
+    saveNewUserPost,
+    checkMembershipAnswerPOST,
+};
