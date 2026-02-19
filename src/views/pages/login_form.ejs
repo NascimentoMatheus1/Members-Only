@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+
+    <body>
+        <%- include('../partials/navBar') %>
+            <main>
+                <div class="login-container">
+                    <h1>Welcome back!</h1>
+                    <%- include("../partials/form_errors.ejs") %>
+                        <form action="/login" method="POST">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" name="username" id="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" name="password" id="password" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit">Login</button>
+                                <button><a href="/">Cancel</a></button>
+                            </div>
+                        </form>
+                </div>
+
+            </main>
+
+    </body>
+
+</html>
