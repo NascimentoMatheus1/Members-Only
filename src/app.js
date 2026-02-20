@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const expressSession = require('express-session');
 const pgPool = require('../src/db/pool');
 const router = require('./routes/basicRouter');
@@ -12,7 +13,8 @@ app.set('view engine', 'ejs');
 // Static files folder - Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Form Parsing - Middleware
+// Parsing - Middleware
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session - Middleware
@@ -26,9 +28,14 @@ app.use(
         secret: process.env.FOO_COOKIE_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 },
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
     }),
 );
+
+// Passport Authentication - Middleware
+require('./config/passport.js');
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ROUTES
 app.use('/', router);
