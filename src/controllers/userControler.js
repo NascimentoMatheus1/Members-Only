@@ -1,51 +1,50 @@
 const db = require('../db/queries');
+const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { body, validationResult, matchedData } = require('express-validator');
+const { isAuth } = require('../routes/authMiddleware');
 
-const getNewMember = (req, res) => {
-    res.render('pages/membership', { title: 'Become a member' });
+// <<<<--->>>> User GET routes <<<<--->>>>
+
+const getIndexPage = (req, res) => {
+    if (req.user) {
+        const { username, first_name, last_name } = req.user;
+        const user = { username, first_name, last_name };
+        return res.render('pages/index', {
+            title: 'Home Member',
+            currentUser: user,
+        });
+    }
+    return res.render('pages/index', {
+        title: 'Home',
+    });
 };
 
 const getNewUser = (req, res) => {
     res.render('pages/sign_up', { title: 'Sign Up' });
 };
 
+const getLogout = (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+};
+
 const getLoginForm = (req, res) => {
     res.render('pages/login_form', { title: 'Log in' });
 };
 
-// Login POST
+//  <<<<<<--->>>>>> User POST routes <<<<--->>>>
 
-const validateLoginBody = [
-    body('username')
-        .escape()
-        .notEmpty()
-        .withMessage('Please input your username'),
-    body('password')
-        .escape()
-        .notEmpty()
-        .withMessage('Please input your password'),
-    ,
-];
-
-const checkLoginPOST = [
-    validateLoginBody,
-    async (req, res) => {
-        try {
-            const erros = validationResult(req);
-            if (!erros.isEmpty()) {
-                return res.status(400).render('pages/login_form', {
-                    title: 'Log in',
-                    erros: erros.array(),
-                });
-            }
-
-            res.redirect('/');
-        } catch (error) {
-            console.log(error.message);
-        }
-    },
-];
+const checkLoginPOST = (req, res, next) => {
+    passport.authenticate('local', {
+        failureRedirect: '/login',
+        successRedirect: '/',
+    })(req, res, next);
+};
 
 // Middleware - Validate new user form inputs
 const validateNewUser = [
@@ -92,14 +91,14 @@ const validateNewUser = [
         .notEmpty()
         .withMessage('Please input your password')
         .isStrongPassword({
-            minLength: 8,
+            minLength: 6,
             minLowercase: 1,
             minNumbers: 1,
-            minUppercase: 1,
-            minSymbols: 1,
+            minUppercase: 0,
+            minSymbols: 0,
         })
         .withMessage(
-            'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol.',
+            'Password must be at least 6 characters long and contain at least one lowercase letter and one number',
         ),
     body('c_password')
         .trim()
@@ -115,7 +114,6 @@ const validateNewUser = [
         ),
 ];
 
-// New user POST
 const saveNewUserPost = [
     validateNewUser,
     async (req, res) => {
@@ -132,10 +130,9 @@ const saveNewUserPost = [
                 matchedData(req);
 
             const hash = await bcrypt.hash(password, 10);
-
             await db.createUser(firstname, lastname, username, hash);
 
-            res.redirect('/');
+            res.redirect('/login');
         } catch (error) {
             console.log(error.message);
         }
@@ -153,7 +150,6 @@ const validateRiddleAnswer = [
         .withMessage('Wrong answer ! Please, try again.'),
 ];
 
-// Check membership POST
 const checkMembershipAnswerPOST = [
     validateRiddleAnswer,
     async (req, res) => {
@@ -175,10 +171,45 @@ const checkMembershipAnswerPOST = [
     },
 ];
 
+//  <<<<--->>>> Protected routes via Authentication <<<<<--->>>>>
+
+const getNewMember = [
+    isAuth,
+    (req, res) => {
+        res.render('pages/membership', { title: 'Become a member' });
+    },
+];
+
+const getProfile = [
+    isAuth,
+    (req, res) => {
+        const {
+            id,
+            first_name,
+            last_name,
+            username,
+            create_at,
+            membership_status,
+        } = req.user;
+        const currentUser = {
+            id,
+            first_name,
+            last_name,
+            username,
+            create_at,
+            membership_status,
+        };
+        res.json({ currentUser });
+    },
+];
+
 module.exports = {
+    getIndexPage,
     getNewMember,
     getNewUser,
     getLoginForm,
+    getLogout,
+    getProfile,
     saveNewUserPost,
     checkMembershipAnswerPOST,
     checkLoginPOST,
