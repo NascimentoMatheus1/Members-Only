@@ -5,7 +5,7 @@
         <li><a href="/">Posts</a></li>
         <% if (locals.currentUser) { %>
             <li><a href="/profile">
-                    <%= currentUser.name %>
+                    <%= currentUser.username %>
                 </a></li>
             <li><a href="/logout">Logout</a></li>
             <% } else { %>
