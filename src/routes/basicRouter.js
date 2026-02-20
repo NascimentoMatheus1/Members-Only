@@ -3,16 +3,19 @@ const userControler = require('../controllers/userControler');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.render('pages/index', {
-        title: 'Home',
-    });
-});
-router.get('/membership', userControler.getNewMember);
+router.get('/', userControler.getIndexPage);
 router.get('/sign-up', userControler.getNewUser);
+
 router.get('/login', userControler.getLoginForm);
+router.get('/logout', userControler.getLogout);
+
 router.post('/sign-up/save', userControler.saveNewUserPost);
 router.post('/membership/check', userControler.checkMembershipAnswerPOST);
 router.post('/login', userControler.checkLoginPOST);
+
+// Protected routes via Authentication
+router.get('/membership', userControler.getNewMember);
+router.get('/profile', userControler.getProfile);
+
 
 module.exports = router;
