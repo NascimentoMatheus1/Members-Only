@@ -139,6 +139,8 @@ const saveNewUserPost = [
     },
 ];
 
+//  <<<<--->>>> Protected routes via Authentication <<<<<--->>>>>
+
 // Middleware - check riddle answer input
 const validateRiddleAnswer = [
     body('answer')
@@ -151,6 +153,7 @@ const validateRiddleAnswer = [
 ];
 
 const checkMembershipAnswerPOST = [
+    isAuth,
     validateRiddleAnswer,
     async (req, res) => {
         try {
@@ -162,7 +165,8 @@ const checkMembershipAnswerPOST = [
                 });
             }
 
-            // db.updateUserBecomeMember(currentUser.id);
+            const userID = Number(req.user.id);
+            await db.updateUserBecomeMember(req.user.id);
 
             res.redirect('/');
         } catch (error) {
@@ -170,8 +174,6 @@ const checkMembershipAnswerPOST = [
         }
     },
 ];
-
-//  <<<<--->>>> Protected routes via Authentication <<<<<--->>>>>
 
 const getNewMember = [
     isAuth,

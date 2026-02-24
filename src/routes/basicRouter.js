@@ -10,12 +10,11 @@ router.get('/login', userControler.getLoginForm);
 router.get('/logout', userControler.getLogout);
 
 router.post('/sign-up/save', userControler.saveNewUserPost);
-router.post('/membership/check', userControler.checkMembershipAnswerPOST);
 router.post('/login', userControler.checkLoginPOST);
 
 // Protected routes via Authentication
 router.get('/membership', userControler.getNewMember);
 router.get('/profile', userControler.getProfile);
-
+router.post('/membership/check', userControler.checkMembershipAnswerPOST);
 
 module.exports = router;
