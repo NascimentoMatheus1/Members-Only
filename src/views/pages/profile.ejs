@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head') %>
+
+    <body>
+        <%- include('../partials/navBar') %>
+            <main>
+                <div class="profile-container">
+                    <h1>User Profile</h1>
+                    <p>Id: <%= currentUser.id %>
+                    </p>
+                    <p>First Name: <%= currentUser.first_name %>
+                    </p>
+                    <p>Last Name: <%= currentUser.last_name %>
+                    </p>
+                    <p>Username: <%= currentUser.username %>
+                    </p>
+                    <p>Created at: <%= currentUser.create_at %>
+                    </p>
+                    <p>Is member: <%= currentUser.membership_status %>
+                    </p>
+                </div>
+            </main>
+    </body>
+
+</html>

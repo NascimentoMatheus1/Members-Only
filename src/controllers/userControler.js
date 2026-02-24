@@ -199,7 +199,7 @@ const getProfile = [
             create_at,
             membership_status,
         };
-        res.json({ currentUser });
+        res.render('pages/profile', { title: 'Profile Info', currentUser });
     },
 ];
 
