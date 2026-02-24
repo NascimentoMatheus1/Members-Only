@@ -8,8 +8,8 @@ const { isAuth } = require('../routes/authMiddleware');
 
 const getIndexPage = (req, res) => {
     if (req.user) {
-        const { username, first_name, last_name } = req.user;
-        const user = { username, first_name, last_name };
+        const { username, first_name, last_name, membership_status } = req.user;
+        const user = { username, first_name, last_name, membership_status };
         return res.render('pages/index', {
             title: 'Home Member',
             currentUser: user,
