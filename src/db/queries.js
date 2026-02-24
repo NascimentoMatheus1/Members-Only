@@ -35,6 +35,7 @@ async function updateUserBecomeMember(id) {
             `
         UPDATE users SET membership_status = true WHERE id = $1 RETURNING *;
         `,
+            [id],
         );
         return rows[0];
     } catch (error) {
