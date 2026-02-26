@@ -5,7 +5,7 @@
 
     <body>
         <%- include('../partials/navBar') %>
-            <main class="posts-container">
+            <main>
                 <div class="notice">
                     <% if (locals.currentUser && !currentUser.membership_status) { %>
                         <p>
@@ -16,13 +16,56 @@
                             <p><a href="/message/new">Create a new message</a></p>
                             <% } else { %>
                                 <p>
-                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to view authors and
+                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to view
+                                    authors and
                                     timestamps of
                                     posts.
                                 </p>
                                 <% }%>
 
                 </div>
+                <div class="posts-container">
+                    <% if (locals.currentUser && currentUser.membership_status) { %>
+                        <% posts.map( (post)=> { %>
+                            <div>
+                                <p>
+                                    <%= post.first_name + post.last_name %>
+                                </p>
+                                <p>@<%= post.username %>
+                                </p>
+                                <p>
+                                    <%= post.create_at %>
+                                </p>
+                                <h6>
+                                    <%= post.title %>
+                                </h6>
+                                <p>
+                                    <%= post.content %>
+                                </p>
+
+                            </div><br>
+                            <% }) %>
+                                <% } else { %>
+                                    <% posts.map( (post)=> { %>
+                                        <div>
+                                            <p>
+                                                ********
+                                            </p>
+                                            <p>@*****
+                                            </p>
+                                            <p>
+                                                <%= post.create_at %>
+                                            </p>
+                                            <h6>
+                                                <%= post.title %>
+                                            </h6>
+                                            <p>
+                                                <%= post.content %>
+                                            </p>
+
+                                        </div><br>
+                                        <% }) %>
+                                            <% } %>
             </main>
     </body>
 
