@@ -6,19 +6,6 @@ const { isAuth } = require('../routes/authMiddleware');
 
 // <<<<--->>>> User GET routes <<<<--->>>>
 
-const getIndexPage = (req, res) => {
-    if (req.isAuthenticated()) {
-        const { username, membership_status } = req.user;
-        return res.render('pages/index', {
-            title: 'Home Member',
-            currentUser: { username, membership_status },
-        });
-    }
-    return res.render('pages/index', {
-        title: 'Home',
-    });
-};
-
 const getNewUser = (req, res) => {
     res.render('pages/sign_up', { title: 'Sign Up' });
 };
@@ -205,7 +192,6 @@ const getProfile = [
 ];
 
 module.exports = {
-    getIndexPage,
     getNewMember,
     getNewUser,
     getLoginForm,

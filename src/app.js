@@ -2,7 +2,9 @@ const express = require('express');
 const passport = require('passport');
 const expressSession = require('express-session');
 const pgPool = require('../src/db/pool');
-const router = require('./routes/basicRouter');
+const indexRouter = require('./routes/indexRouter.js');
+const userRouter = require('./routes/userRouter.js');
+const messageRouter = require('./routes/messageRouter.js');
 const path = require('path');
 const app = express();
 
@@ -38,6 +40,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ROUTES
-app.use('/', router);
+app.use('/', indexRouter);
+app.use('/user', userRouter);
+app.use('/message', messageRouter);
 
 module.exports = app;

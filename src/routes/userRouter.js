@@ -3,9 +3,7 @@ const userControler = require('../controllers/userControler');
 
 const router = Router();
 
-router.get('/', userControler.getIndexPage);
 router.get('/sign-up', userControler.getNewUser);
-
 router.get('/login', userControler.getLoginForm);
 router.get('/logout', userControler.getLogout);
 
