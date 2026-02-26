@@ -7,9 +7,7 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="profile-container">
-                    <h1>User Profile</h1>
-                    <p>Id: <%= currentUser.id %>
-                    </p>
+                    <h1>Profile Info:</h1>
                     <p>First Name: <%= currentUser.first_name %>
                     </p>
                     <p>Last Name: <%= currentUser.last_name %>
@@ -20,6 +18,25 @@
                     </p>
                     <p>Is member: <%= currentUser.membership_status %>
                     </p>
+                </div>
+                <div>
+                    <h1>Profile Posts:</h1>
+                     <% if (locals.posts) { %>
+                        <% posts.map( (post)=> { %>
+                            <div>
+                                <p>
+                                    <%= post.create_at %>
+                                </p>
+                                <h6>
+                                    <%= post.title %>
+                                </h6>
+                                <p>
+                                    <%= post.content %>
+                                </p>
+
+                            </div><br>
+                            <% }) %>
+                    <% } %>
                 </div>
             </main>
     </body>

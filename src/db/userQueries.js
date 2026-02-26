@@ -43,8 +43,23 @@ async function updateUserBecomeMember(id) {
     }
 }
 
+async function selectUserPosts(id) {
+    try {
+        const { rows } = await pool.query(
+            `
+        SELECT * FROM messages WHERE user_id = $1;
+        `,
+            [id],
+        );
+        return rows;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     getByUsername,
     createUser,
     updateUserBecomeMember,
+    selectUserPosts,
 };

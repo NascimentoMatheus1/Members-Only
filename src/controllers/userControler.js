@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { body, validationResult, matchedData } = require('express-validator');
 const { isAuth } = require('../routes/authMiddleware');
 
-// <<<<--->>>> User GET routes <<<<--->>>>
+// GET routes
 
 const getNewUser = (req, res) => {
     res.render('pages/sign_up', { title: 'Sign Up' });
@@ -23,7 +23,7 @@ const getLoginForm = (req, res) => {
     res.render('pages/login_form', { title: 'Log in' });
 };
 
-//  <<<<<<--->>>>>> User POST routes <<<<--->>>>
+//  POST routes
 
 const checkLoginPOST = (req, res, next) => {
     passport.authenticate('local', {
@@ -125,7 +125,7 @@ const saveNewUserPost = [
     },
 ];
 
-//  <<<<--->>>> Protected routes via Authentication <<<<<--->>>>>
+//  --- Protected routes via Authentication ---
 
 // Middleware - check riddle answer input
 const validateRiddleAnswer = [
@@ -170,24 +170,26 @@ const getNewMember = [
 
 const getProfile = [
     isAuth,
-    (req, res) => {
-        const {
-            id,
-            first_name,
-            last_name,
-            username,
-            create_at,
-            membership_status,
-        } = req.user;
-        const currentUser = {
-            id,
-            first_name,
-            last_name,
-            username,
-            create_at,
-            membership_status,
-        };
-        res.render('pages/profile', { title: 'Profile Info', currentUser });
+    async (req, res) => {
+        try {
+            const currentUser = {
+                first_name: req.user.first_name,
+                last_name: req.user.last_name,
+                username: req.user.username,
+                create_at: req.user.create_at,
+                membership_status: req.user.membership_status,
+            };
+
+            const posts = await db.selectUserPosts(req.user.id);
+
+            res.render('pages/profile', {
+                title: 'Profile Info',
+                currentUser,
+                posts,
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
     },
 ];
 
