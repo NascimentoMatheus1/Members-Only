@@ -7,9 +7,9 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="error-container">
-                    <h1>401</h1>
-                    <h2>Access Denied / Not Authorized</h2>
-                    <p>Sorry, you don't have permission to access this page. Please check your credentials.</p>
+                    <h1><%= status %></h1>
+                    <h2><%= message %></h2>
+                    <p><%= notice %></p>
                     <a href="/">Return to Homepage</a>
                 </div>
             </main>
