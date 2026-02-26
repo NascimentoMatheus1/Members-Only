@@ -7,7 +7,7 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="notice">
-                    <% if (locals.currentUser) { %>
+                    <% if (locals.currentUser && !currentUser.membership_status) { %>
                         <p><a href="/message/new">Create a new message</a></p>
                         <p>
                             <a href="/user/membership">Become a member</a> to view

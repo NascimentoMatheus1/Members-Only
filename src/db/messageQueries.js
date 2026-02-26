@@ -2,7 +2,7 @@ const pool = require('./pool');
 
 async function selectAllMessages() {
     try {
-        const { rows } = await pool.query('SELECT * FROM messages;');
+        const { rows } = await pool.query('SELECT * FROM messages ORDER BY create_at DESC;');
         return rows;
     } catch (error) {
         console.log(error.messages);
@@ -15,7 +15,8 @@ async function selectAllMessagesInnerJoinUser() {
             SELECT title, content, messages.create_at, 
             first_name, last_name, username FROM messages 
             INNER JOIN users 
-            ON (messages.user_id = users.id);`);
+            ON (messages.user_id = users.id)
+            ORDER BY messages.create_at DESC;`);
         return rows;
     } catch (error) {
         console.log(error.messages);
