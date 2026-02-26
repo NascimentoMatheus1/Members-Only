@@ -7,19 +7,21 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="notice">
-                    <% if (locals.currentUser && !currentUser.membership_status) { %>
+                    <% if (locals.currentUser) { %>
+                        <p><a href="/message/new">Create a new message</a></p>
                         <p>
-                            <a href="/user/membership">Become a member</a> to create posts.</a>
+                            <a href="/user/membership">Become a member</a> to view
+                            authors of
+                            posts.</a>
                         </p>
                         <% } else if (locals.currentUser && currentUser.membership_status) { %>
                             <p>Welcome back member</p>
                             <p><a href="/message/new">Create a new message</a></p>
                             <% } else { %>
                                 <p>
-                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to view
-                                    authors and
-                                    timestamps of
-                                    posts.
+                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to create
+                                    posts and view
+                                    authors.
                                 </p>
                                 <% }%>
 
