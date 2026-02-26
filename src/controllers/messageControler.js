@@ -1,11 +1,19 @@
 const db = require('../db/messageQueries');
 const { body, validationResult, matchedData } = require('express-validator');
-const { isMember } = require('../routes/authMiddleware');
+const { isAuth } = require('../routes/authMiddleware');
 
 const getNewMessage = [
-    isMember,
+    isAuth,
     (req, res) => {
-        res.render('pages/newMessage_form', { title: 'New Message' });
+        const currentUser = {
+            username: req.user.username,
+            membership_status: req.user.membership_status,
+        };
+
+        res.render('pages/newMessage_form', {
+            title: 'New Message',
+            currentUser,
+        });
     },
 ];
 
@@ -28,7 +36,7 @@ const validateNewMessage = [
 ];
 
 const postSaveNewMessage = [
-    isMember,
+    isAuth,
     validateNewMessage,
     async (req, res) => {
         try {
