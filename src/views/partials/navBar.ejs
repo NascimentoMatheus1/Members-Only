@@ -4,13 +4,13 @@
     <ul class="nav-links">
         <li><a href="/">Posts</a></li>
         <% if (locals.currentUser) { %>
-            <li><a href="/profile">
+            <li><a href="/user/profile">
                     <%= currentUser.username %>
                 </a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/user/logout">Logout</a></li>
             <% } else { %>
-                <li><a href="/sign-up">Sign Up</a></li>
-                <li><a href="/login">Log In</a></li>
+                <li><a href="/user/sign-up">Sign Up</a></li>
+                <li><a href="/user/login">Log In</a></li>
                 <% }%>
     </ul>
 </nav>

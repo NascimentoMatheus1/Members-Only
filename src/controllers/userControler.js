@@ -27,7 +27,7 @@ const getLoginForm = (req, res) => {
 
 const checkLoginPOST = (req, res, next) => {
     passport.authenticate('local', {
-        failureRedirect: '/login',
+        failureRedirect: '/user/login',
         successRedirect: '/',
     })(req, res, next);
 };
@@ -118,7 +118,7 @@ const saveNewUserPost = [
             const hash = await bcrypt.hash(password, 10);
             await db.createUser(firstname, lastname, username, hash);
 
-            res.redirect('/login');
+            res.redirect('/user/login');
         } catch (error) {
             console.log(error.message);
         }

@@ -9,14 +9,14 @@
                 <div class="notice">
                     <% if (locals.currentUser && !currentUser.membership_status) { %>
                         <p>
-                            <a href="/membership">Become a member</a> to create posts.</a>
+                            <a href="/user/membership">Become a member</a> to create posts.</a>
                         </p>
                         <% } else if (locals.currentUser && currentUser.membership_status) { %>
                             <p>Welcome back member</p>
                             <p><a href="/message/new">Create a new message</a></p>
                             <% } else { %>
                                 <p>
-                                    <a href="/login">Log in</a> or <a href="/sign-up">Sign up</a> to view authors and
+                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to view authors and
                                     timestamps of
                                     posts.
                                 </p>
