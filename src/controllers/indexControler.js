@@ -6,9 +6,10 @@ const getIndexPage = async (req, res) => {
             ? {
                   username: req.user.username,
                   membership_status: req.user.membership_status,
+                  isAdmin: req.user.admin,
               }
             : null;
-
+            
         if (req.isAuthenticated() && req.user.membership_status) {
             const messages = await messagesDB.selectAllMessagesInnerJoinUser();
             return res.render('pages/index', {
@@ -19,7 +20,7 @@ const getIndexPage = async (req, res) => {
         }
 
         const messages = await messagesDB.selectAllMessages();
-        
+
         return res.render('pages/index', {
             title: 'Home',
             currentUser,

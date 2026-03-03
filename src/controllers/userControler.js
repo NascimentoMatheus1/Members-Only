@@ -178,6 +178,7 @@ const getProfile = [
                 username: req.user.username,
                 create_at: req.user.create_at,
                 membership_status: req.user.membership_status,
+                isAdmin: req.user.admin,
             };
 
             const posts = await db.selectUserPosts(req.user.id);

@@ -18,10 +18,12 @@
                     </p>
                     <p>Is member: <%= currentUser.membership_status %>
                     </p>
+                    <p>Is Admin: <%= currentUser.isAdmin %>
+                    </p>
                 </div>
                 <div>
                     <h1>Profile Posts:</h1>
-                     <% if (locals.posts) { %>
+                    <% if (locals.posts) { %>
                         <% posts.map( (post)=> { %>
                             <div>
                                 <p>
@@ -36,7 +38,7 @@
 
                             </div><br>
                             <% }) %>
-                    <% } %>
+                                <% } %>
                 </div>
             </main>
     </body>
