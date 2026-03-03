@@ -23,3 +23,16 @@ module.exports.isMember = (req, res, next) => {
         });
     }
 };
+
+module.exports.isAdmin = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.admin) {
+        next();
+    } else {
+        res.status(401).render('pages/error_page', {
+            title: 'Not Authorized',
+            status: 401,
+            message: 'Access Denied / Not Authorized ',
+            notice: `Sorry, you don't have permission to access this page. Please check your credentials.`,
+        });
+    }
+};

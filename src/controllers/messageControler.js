@@ -1,6 +1,6 @@
 const db = require('../db/messageQueries');
 const { body, validationResult, matchedData } = require('express-validator');
-const { isAuth } = require('../routes/authMiddleware');
+const { isAuth, isAdmin } = require('../routes/authMiddleware');
 
 const getNewMessage = [
     isAuth,
@@ -59,4 +59,19 @@ const postSaveNewMessage = [
     },
 ];
 
-module.exports = { getNewMessage, postSaveNewMessage };
+const postDeleteMessage = [
+    isAdmin,
+    async (req, res) => {
+        try {
+            const { id } = req.params;
+    
+            await db.deleteMessage(id);
+
+            res.redirect('/');
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+];
+
+module.exports = { getNewMessage, postSaveNewMessage, postDeleteMessage };
