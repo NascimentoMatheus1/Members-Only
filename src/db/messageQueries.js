@@ -2,7 +2,9 @@ const pool = require('./pool');
 
 async function selectAllMessages() {
     try {
-        const { rows } = await pool.query('SELECT * FROM messages ORDER BY create_at DESC;');
+        const { rows } = await pool.query(
+            'SELECT * FROM messages ORDER BY create_at DESC;',
+        );
         return rows;
     } catch (error) {
         console.log(error.messages);
@@ -12,7 +14,7 @@ async function selectAllMessages() {
 async function selectAllMessagesInnerJoinUser() {
     try {
         const { rows } = await pool.query(`
-            SELECT title, content, messages.create_at, 
+            SELECT messages.id, title, content, messages.create_at, 
             first_name, last_name, username FROM messages 
             INNER JOIN users 
             ON (messages.user_id = users.id)
@@ -37,8 +39,21 @@ async function insertNewMessage(title, message, userId) {
     }
 }
 
+async function deleteMessage(id) {
+    try {
+        const { rows } = await pool.query(
+            `DELETE FROM messages WHERE id = $1 RETURNING *`,
+            [id],
+        );
+        return rows[0];
+    } catch (error) {
+        console.log(error.messages);
+    }
+}
+
 module.exports = {
     selectAllMessages,
     selectAllMessagesInnerJoinUser,
     insertNewMessage,
+    deleteMessage,
 };

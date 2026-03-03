@@ -32,6 +32,8 @@ const SQL = `
     ('Need help with Express', 'How do I handle errors in middleware?', 2),
     ('Maintenance Notice', 'The database will be down for upgrades tomorrow at 2:00 AM.', 1),
     ('Testing', 'Is this message showing up correctly?', 3);
+
+    ALTER TABLE users ADD COLUMN admin BOOL default false;
 `;
 
 async function main() {
