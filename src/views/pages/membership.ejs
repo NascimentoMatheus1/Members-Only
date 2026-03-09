@@ -8,7 +8,6 @@
             <main>
                 <div class="riddle-container">
                     <h1>Become a member solving the riddle</h1>
-                    <h2>Here's the riddle for you:</h2>
                     <p>
                         I have keys, but no locks. <br>
                         I have a space, but no room. <br>
@@ -16,19 +15,23 @@
 
                         What am I?
                     </p>
-                    <p>The answer is a single word</p>
+                </div>
+
+                <div class="form-container">
                     <%- include("../partials/form_errors.ejs") %>
                         <form action="/user/membership/check" method="POST">
                             <div class="form-group">
-                                <label for="answer">Answer: </label>
+                                <label for="answer">The answer is a single word: </label><br>
                                 <input type="text" name="answer" id="answer" placeholder="your answer..." required>
                             </div>
                             <div class="form-actions">
-                                <button type="submit">Submit</button>
-                                <button><a href="/">Cancel</a></button>
+                                <button type="submit" class="submit-btn">Submit</button>
+                                <a href="/" class="cancel-btn">Cancel</a>
                             </div>
                         </form>
                 </div>
+
+
 
             </main>
     </body>

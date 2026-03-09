@@ -6,34 +6,36 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="signUp-container">
-                    <h1>Create a new account</h1>
-                    <%- include("../partials/form_errors.ejs") %>
-                        <form action="/user/sign-up/save" method="POST">
-                            <div class="form-group">
-                                <label for="firstname">Fist name:</label>
-                                <input type="text" name="firstname" id="firstname" placeholder="John" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname">Last name:</label>
-                                <input type="text" name="lastname" id="lastname" placeholder="Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" name="username" id="username" placeholder="JohnDoe123" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" name="password" id="password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="c_password">Confirm Password:</label>
-                                <input type="password" name="c_password" id="c_password" required>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit">Save</button>
-                                <button><a href="/">Cancel</a></button>
-                            </div>
-                        </form>
+                    <div class="form-container">
+                        <h1>Create a new account</h1>
+                        <%- include("../partials/form_errors.ejs") %>
+                            <form action="/user/sign-up/save" method="POST">
+                                <div class="form-group">
+                                    <label for="firstname">Fist name:</label>
+                                    <input type="text" name="firstname" id="firstname" placeholder="John" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname">Last name:</label>
+                                    <input type="text" name="lastname" id="lastname" placeholder="Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username:</label>
+                                    <input type="text" name="username" id="username" placeholder="JohnDoe123" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input type="password" name="password" id="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_password">Confirm Password:</label>
+                                    <input type="password" name="c_password" id="c_password" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="submit-btn">Save</button>
+                                    <a href="/" class="cancel-btn">Cancel</a>
+                                </div>
+                            </form>
+                    </div>
                 </div>
 
             </main>
