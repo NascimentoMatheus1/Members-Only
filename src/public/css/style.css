@@ -1,7 +1,25 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --accent-color: #7d2ae8;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f5f5f5;
+    --accent-color: #bb86fc;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 main {
@@ -12,7 +30,16 @@ main {
     padding: 1rem;
 }
 
-/* navBar Partials */
+main a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+main a:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+/* navBar Component */
 
 .navbar {
     max-width: 1300px;
@@ -36,7 +63,7 @@ main {
 }
 
 .nav-logo a {
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
     font-size: 24px;
     font-weight: bold;
@@ -49,11 +76,24 @@ main {
     align-items: center;
 }
 .nav-links a {
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s ease;
 }
 .nav-links a:hover {
     color: #4caf50;
+}
+
+/* dark and light theme switch button  */
+
+#theme-btn{
+    transition: 200ms ease-in-out;
+    border: none;
+    background-color: var(--bg-color);
+    cursor: pointer;
+}
+
+#theme-btn:hover{
+    transform: scale(1.2);
 }
