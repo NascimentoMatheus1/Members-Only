@@ -2,6 +2,10 @@
     --bg-color: #ffffff;
     --text-color: #333333;
     --accent-color: #7d2ae8;
+    --primary-color: #4a90e2;
+    --secondary-color: #357abd;
+    --border-color: #ddd;
+    --input-bg: #f9f9f9;
 }
 
 * {
@@ -39,7 +43,15 @@ main a:hover {
     text-decoration: underline;
 }
 
-/* navBar Component */
+.riddle-container {
+    text-align: center;
+}
+
+.riddle-container > h1 {
+    margin-bottom: 10px;
+}
+
+/* --- navBar Component  ---*/
 
 .navbar {
     max-width: 1300px;
@@ -87,13 +99,111 @@ main a:hover {
 
 /* dark and light theme switch button  */
 
-#theme-btn{
+#theme-btn {
     transition: 200ms ease-in-out;
     border: none;
     background-color: var(--bg-color);
     cursor: pointer;
 }
 
-#theme-btn:hover{
+#theme-btn:hover {
     transform: scale(1.2);
 }
+/* ---  navBar Component END  ---*/
+
+/* --- Form Component ---*/
+
+.form-container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(104, 101, 101, 0.1);
+    background-color: var(--bg-color);
+}
+
+.form-container > h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--text-color);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    background-color: #fff;
+}
+
+.submit-btn,
+.cancel-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease-in-out;
+    margin-bottom: 8px;
+}
+.form-actions > button:active {
+    transform: scale(0.98);
+}
+
+.submit-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.cancel-btn {
+    background-color: rgb(228, 84, 84);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.submit-btn:hover,
+.cancel-btn:hover {
+    transform: scale(1.02);
+    text-decoration: none;
+    color: white;
+}
+
+/* --- Form Component END ---*/
+
+/* --- Form Error Component --- */
+.error-list {
+    color: rgb(243, 53, 53);
+}
+
+.error-list > li {
+    margin-bottom: 8px;
+}
+/* --- Form Error Component END --- */
