@@ -1,6 +1,6 @@
 const db = require('../db/messageQueries');
 const { body, validationResult, matchedData } = require('express-validator');
-const { isAuth, isAdmin } = require('../routes/authMiddleware');
+const { isAuth, isAdmin } = require('../middlewares/authMiddleware');
 
 const getNewMessage = [
     isAuth,

@@ -2,7 +2,7 @@ const db = require('../db/userQueries');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { body, validationResult, matchedData } = require('express-validator');
-const { isAuth } = require('../routes/authMiddleware');
+const { isAuth } = require('../middlewares/authMiddleware');
 
 // GET routes
 
