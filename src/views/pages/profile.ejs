@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <%- include('../partials/head') %>
 
@@ -7,34 +7,34 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="profile-container">
-                    <h1>Profile:</h1>
+                    <h1>Perfil:</h1>
                     <div class="message-card">
-                        <p>First Name: <span class="full-name">
+                        <p>Nome: <span class="full-name">
                                 <%= currentUser.first_name %>
                             </span>
                         </p>
-                        <p>Last Name: <span class="full-name">
+                        <p>Sobrenome: <span class="full-name">
                                 <%= currentUser.last_name %>
                             </span>
                         </p>
-                        <p>Username: <span class="full-name">@<%= currentUser.username %></span>
+                        <p>Usuário: <span class="full-name">@<%= currentUser.username %></span>
                         </p>
-                        <p>Created at: <span class="full-name">
+                        <p>Criado em: <span class="full-name">
                                 <%= currentUser.create_at %>
                             </span>
                         </p>
-                        <p>Is member: <span class="full-name">
+                        <p>É membro: <span class="full-name">
                                 <%= currentUser.membership_status %>
                             </span>
                         </p>
-                        <p>Is Admin: <span class="full-name">
+                        <p>É administrador: <span class="full-name">
                                 <%= currentUser.isAdmin %>
                             </span>
                         </p>
                     </div>
 
                     <div>
-                        <h1>Posts:</h1>
+                        <h1>Postagens:</h1>
                         <% if (locals.posts) { %>
                             <% posts.map( (post)=> { %>
                                 <div class="message-card">

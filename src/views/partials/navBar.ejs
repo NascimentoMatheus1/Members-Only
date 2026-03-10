@@ -2,15 +2,15 @@
     <div class="nav-logo"><a href="/">Members Only</a></div>
 
     <ul class="nav-links">
-        <li><a href="/">Posts</a></li>
+        <li><a href="/">Postagens</a></li>
         <% if (locals.currentUser) { %>
             <li><a href="/user/profile">
                     <%= currentUser.username %>
                 </a></li>
-            <li><a href="/user/logout">Logout</a></li>
+            <li><a href="/user/logout">Sair</a></li>
             <% } else { %>
-                <li><a href="/user/sign-up">Sign Up</a></li>
-                <li><a href="/user/login">Log In</a></li>
+                <li><a href="/user/sign-up">Inscrever-se</a></li>
+                <li><a href="/user/login">Entrar</a></li>
                 <% }%>
                     <li><button id="theme-btn" class="theme-switch">🌙</button></li>
     </ul>
