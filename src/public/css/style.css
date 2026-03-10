@@ -294,3 +294,49 @@ textarea:focus {
 }
 
 /* --- message-card Component END --- */
+
+/* --- Error Page Component BEGIN --- */
+.error-container {
+    max-width: 700px;
+}
+
+.error-container h1 {
+    font-size: var(--text-2xl);
+    letter-spacing: 0.2rem;
+    color: var(--secondary-text-color);
+    text-align: center;
+    margin: 1rem;
+    font-weight: 800;
+}
+
+.error-container h2 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0.5rem;
+    line-height: 1.1;
+}
+
+.error-container p {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    margin: 0.5rem;
+    color: var(--secondary-text-color);
+}
+
+.error-container > a {
+    font-size: var(--text-md);
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+    margin: 0.5rem;
+}
+
+.error-container a:hover {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+/* --- Error Page Component END ---  */
