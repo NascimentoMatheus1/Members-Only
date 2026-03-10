@@ -5,6 +5,7 @@ const pgPool = require('../src/db/pool');
 const indexRouter = require('./routes/indexRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const messageRouter = require('./routes/messageRouter.js');
+const { getNotFoundPage } = require('./middlewares/notFoundError.js');
 const path = require('path');
 const app = express();
 
@@ -43,5 +44,6 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/message', messageRouter);
+app.use(getNotFoundPage);
 
 module.exports = app;
