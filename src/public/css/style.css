@@ -98,6 +98,7 @@ main a:hover {
     display: flex;
     gap: 20px;
     align-items: center;
+    flex-wrap: wrap;
 }
 .nav-links a {
     color: var(--text-color);
