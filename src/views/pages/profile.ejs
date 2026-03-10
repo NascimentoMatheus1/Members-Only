@@ -7,39 +7,60 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="profile-container">
-                    <h1>Profile Info:</h1>
-                    <p>First Name: <%= currentUser.first_name %>
-                    </p>
-                    <p>Last Name: <%= currentUser.last_name %>
-                    </p>
-                    <p>Username: <%= currentUser.username %>
-                    </p>
-                    <p>Created at: <%= currentUser.create_at %>
-                    </p>
-                    <p>Is member: <%= currentUser.membership_status %>
-                    </p>
-                    <p>Is Admin: <%= currentUser.isAdmin %>
-                    </p>
-                </div>
-                <div>
-                    <h1>Profile Posts:</h1>
-                    <% if (locals.posts) { %>
-                        <% posts.map( (post)=> { %>
-                            <div>
-                                <p>
-                                    <%= post.create_at %>
-                                </p>
-                                <h6>
-                                    <%= post.title %>
-                                </h6>
-                                <p>
-                                    <%= post.content %>
-                                </p>
+                    <h1>Profile:</h1>
+                    <div class="message-card">
+                        <p>First Name: <span class="full-name">
+                                <%= currentUser.first_name %>
+                            </span>
+                        </p>
+                        <p>Last Name: <span class="full-name">
+                                <%= currentUser.last_name %>
+                            </span>
+                        </p>
+                        <p>Username: <span class="full-name">@<%= currentUser.username %></span>
+                        </p>
+                        <p>Created at: <span class="full-name">
+                                <%= currentUser.create_at %>
+                            </span>
+                        </p>
+                        <p>Is member: <span class="full-name">
+                                <%= currentUser.membership_status %>
+                            </span>
+                        </p>
+                        <p>Is Admin: <span class="full-name">
+                                <%= currentUser.isAdmin %>
+                            </span>
+                        </p>
+                    </div>
 
-                            </div><br>
-                            <% }) %>
-                                <% } %>
+                    <div>
+                        <h1>Posts:</h1>
+                        <% if (locals.posts) { %>
+                            <% posts.map( (post)=> { %>
+                                <div class="message-card">
+                                    <div class="message-header">
+                                        <div class="user-info">
+                                            <span class="dot">•</span>
+                                            <span class="created-at">
+                                                <%= post.create_at %>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-body">
+                                        <h3 class="title">
+                                            <%= post.title %>
+                                        </h3>
+                                        <p class="content">
+                                            <%= post.content %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } %>
+                    </div>
                 </div>
+
             </main>
     </body>
 

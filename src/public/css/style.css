@@ -70,6 +70,7 @@ main a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding: 15px 30px;
     font-family:
         system-ui,
