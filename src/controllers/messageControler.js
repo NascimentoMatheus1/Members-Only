@@ -11,7 +11,7 @@ const getNewMessage = [
         };
 
         res.render('pages/newMessage_form', {
-            title: 'New Message',
+            title: 'Nova postagem',
             currentUser,
         });
     },
@@ -43,7 +43,7 @@ const postSaveNewMessage = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).render('pages/newMessage_form', {
-                    title: 'New Message',
+                    title: 'Nova Postagem',
                     errors: errors.array(),
                 });
             }

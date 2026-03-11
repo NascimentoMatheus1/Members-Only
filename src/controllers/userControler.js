@@ -7,7 +7,7 @@ const { isAuth } = require('../middlewares/authMiddleware');
 // GET routes
 
 const getNewUser = (req, res) => {
-    res.render('pages/sign_up', { title: 'Sign Up' });
+    res.render('pages/sign_up', { title: 'Inscrever-se' });
 };
 
 const getLogout = (req, res, next) => {
@@ -20,7 +20,7 @@ const getLogout = (req, res, next) => {
 };
 
 const getLoginForm = (req, res) => {
-    res.render('pages/login_form', { title: 'Log in' });
+    res.render('pages/login_form', { title: 'Entrar' });
 };
 
 //  POST routes
@@ -146,7 +146,7 @@ const checkMembershipAnswerPOST = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).render('pages/membership', {
-                    title: 'Try again',
+                    title: 'Tente novamente',
                     errors: errors.array(),
                 });
             }
@@ -164,7 +164,7 @@ const checkMembershipAnswerPOST = [
 const getNewMember = [
     isAuth,
     (req, res) => {
-        res.render('pages/membership', { title: 'Become a member' });
+        res.render('pages/membership', { title: 'Torne-se membro' });
     },
 ];
 
@@ -184,7 +184,7 @@ const getProfile = [
             const posts = await db.selectUserPosts(req.user.id);
 
             res.render('pages/profile', {
-                title: 'Profile Info',
+                title: 'Perfil',
                 currentUser,
                 posts,
             });
