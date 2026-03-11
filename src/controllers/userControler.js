@@ -164,7 +164,11 @@ const checkMembershipAnswerPOST = [
 const getNewMember = [
     isAuth,
     (req, res) => {
-        res.render('pages/membership', { title: 'Torne-se membro' });
+        const currentUser = {
+            username: req.user.username,
+            membership_status: req.user.membership_status,
+        };
+        res.render('pages/membership', { title: 'Torne-se membro', currentUser });
     },
 ];
 
