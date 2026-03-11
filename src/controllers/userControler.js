@@ -24,11 +24,21 @@ const getLoginForm = (req, res) => {
 };
 
 //  POST routes
-
 const checkLoginPOST = (req, res, next) => {
-    passport.authenticate('local', {
-        failureRedirect: '/user/login',
-        successRedirect: '/',
+    passport.authenticate('local', (err, user, info) => {
+        if (err) return next(err);
+
+        if (!user) {
+            return res.render('pages/login_form', {
+                title: 'Falha no login',
+                errors: [{ msg: 'Usuário ou Senha incorretos!' }],
+            });
+        }
+
+        req.logIn(user, (err) => {
+            if (err) return next(err);
+            return res.redirect('/');
+        });
     })(req, res, next);
 };
 
@@ -168,7 +178,10 @@ const getNewMember = [
             username: req.user.username,
             membership_status: req.user.membership_status,
         };
-        res.render('pages/membership', { title: 'Torne-se membro', currentUser });
+        res.render('pages/membership', {
+            title: 'Torne-se membro',
+            currentUser,
+        });
     },
 ];
 
