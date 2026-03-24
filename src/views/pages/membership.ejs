@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <%- include('../partials/head') %>
 
@@ -7,13 +7,13 @@
         <%- include('../partials/navBar') %>
             <main>
                 <div class="riddle-container">
-                    <h1>Become a member solving the riddle</h1>
+                    <h1>Torne-se membro resolvendo o enigma.</h1>
                     <p>
-                        I have keys, but no locks. <br>
-                        I have a space, but no room. <br>
-                        You can enter, but you can never leave. <br>
+                        Tenho chaves, mas não tenho fechaduras. <br>
+                        Tenho um espaço, mas não tenho quarto. <br>
+                        Você pode entrar, mas nunca poderá sair. <br>
 
-                        What am I?
+                        O que sou eu?
                     </p>
                 </div>
 
@@ -21,12 +21,13 @@
                     <%- include("../partials/form_errors.ejs") %>
                         <form action="/user/membership/check" method="POST">
                             <div class="form-group">
-                                <label for="answer">The answer is a single word: </label><br>
-                                <input type="text" name="answer" id="answer" placeholder="your answer..." required>
+                                <label for="answer">A resposta é uma única palavra:
+                                </label><br>
+                                <input type="text" name="answer" id="answer" placeholder="sua resposta..." required>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="submit-btn">Submit</button>
-                                <a href="/" class="cancel-btn">Cancel</a>
+                                <button type="submit" class="submit-btn">Enviar</button>
+                                <a href="/" class="cancel-btn">Cancelar</a>
                             </div>
                         </form>
                 </div>

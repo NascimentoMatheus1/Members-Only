@@ -7,7 +7,7 @@ const { isAuth } = require('../middlewares/authMiddleware');
 // GET routes
 
 const getNewUser = (req, res) => {
-    res.render('pages/sign_up', { title: 'Sign Up' });
+    res.render('pages/sign_up', { title: 'Inscrever-se' });
 };
 
 const getLogout = (req, res, next) => {
@@ -20,15 +20,25 @@ const getLogout = (req, res, next) => {
 };
 
 const getLoginForm = (req, res) => {
-    res.render('pages/login_form', { title: 'Log in' });
+    res.render('pages/login_form', { title: 'Entrar' });
 };
 
 //  POST routes
-
 const checkLoginPOST = (req, res, next) => {
-    passport.authenticate('local', {
-        failureRedirect: '/user/login',
-        successRedirect: '/',
+    passport.authenticate('local', (err, user, info) => {
+        if (err) return next(err);
+
+        if (!user) {
+            return res.render('pages/login_form', {
+                title: 'Falha no login',
+                errors: [{ msg: 'Usuário ou Senha incorretos!' }],
+            });
+        }
+
+        req.logIn(user, (err) => {
+            if (err) return next(err);
+            return res.redirect('/');
+        });
     })(req, res, next);
 };
 
@@ -38,33 +48,33 @@ const validateNewUser = [
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input your first name')
+        .withMessage('Por favor, digite seu nome.')
         .isAlpha('pt-BR', { ignore: ' ' })
-        .withMessage('Fist name must only contain letters.')
+        .withMessage('O nome deve conter apenas letras.')
         .isLength({ min: 3, max: 100 })
-        .withMessage('Fist name be between 3 and 100 characters'),
+        .withMessage('O nome deve ter entre 3 e 100 caracteres.'),
     body('lastname')
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input your last name')
+        .withMessage('Por favor, digite seu sobrenome.')
         .isAlpha('pt-BR', { ignore: ' ' })
-        .withMessage('Last name must only contain letters.')
+        .withMessage('O sobrenome deve conter apenas letras.')
         .isLength({ min: 3, max: 100 })
-        .withMessage('Last name be between 3 and 100 characters'),
+        .withMessage('O sobrenome deve ter entre 3 e 100 caracteres.'),
     body('username')
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input your username')
+        .withMessage('Por favor, digite seu nome de usuário.')
         .isLength({ min: 3, max: 100 })
-        .withMessage('Username be between 3 and 255 characters')
+        .withMessage('O nome de usuário deve ter entre 3 e 255 caracteres.')
         .custom(async (username) => {
             try {
                 const user = await db.getByUsername(username);
 
                 if (user) {
-                    throw new Error('Username already in use');
+                    throw new Error('Nome de usuário já em uso');
                 }
                 return true;
             } catch (error) {
@@ -75,7 +85,7 @@ const validateNewUser = [
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input your password')
+        .withMessage('Por favor, insira sua senha.')
         .isStrongPassword({
             minLength: 6,
             minLowercase: 1,
@@ -84,19 +94,19 @@ const validateNewUser = [
             minSymbols: 0,
         })
         .withMessage(
-            'Password must be at least 6 characters long and contain at least one lowercase letter and one number',
+            'A senha deve ter no mínimo 6 caracteres e conter pelo menos uma letra minúscula e um número.',
         ),
     body('c_password')
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please Confirm your password')
+        .withMessage('Por favor, confirme sua senha.')
         .custom(
             (c_password, { req: request }) =>
                 c_password === request.body.password,
         )
         .withMessage(
-            'The password and its confirmation do not match, please input them correctly.',
+            'A senha e a confirmação não coincidem. Por favor, insira-as corretamente.',
         ),
 ];
 
@@ -107,7 +117,7 @@ const saveNewUserPost = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).render('pages/sign_up', {
-                    title: 'Fill all inputs correctly.',
+                    title: 'Preencha todos os campos corretamente.',
                     errors: errors.array(),
                 });
             }
@@ -133,9 +143,9 @@ const validateRiddleAnswer = [
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input the answer.')
-        .custom((answer) => answer.toLowerCase() === 'keyboard')
-        .withMessage('Wrong answer ! Please, try again.'),
+        .withMessage('Por favor, insira a resposta.')
+        .custom((answer) => answer.toLowerCase() === 'teclado')
+        .withMessage('Resposta incorreta! Por favor, tente novamente.'),
 ];
 
 const checkMembershipAnswerPOST = [
@@ -146,7 +156,7 @@ const checkMembershipAnswerPOST = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).render('pages/membership', {
-                    title: 'Try again',
+                    title: 'Tente novamente',
                     errors: errors.array(),
                 });
             }
@@ -164,7 +174,14 @@ const checkMembershipAnswerPOST = [
 const getNewMember = [
     isAuth,
     (req, res) => {
-        res.render('pages/membership', { title: 'Become a member' });
+        const currentUser = {
+            username: req.user.username,
+            membership_status: req.user.membership_status,
+        };
+        res.render('pages/membership', {
+            title: 'Torne-se membro',
+            currentUser,
+        });
     },
 ];
 
@@ -184,7 +201,7 @@ const getProfile = [
             const posts = await db.selectUserPosts(req.user.id);
 
             res.render('pages/profile', {
-                title: 'Profile Info',
+                title: 'Perfil',
                 currentUser,
                 posts,
             });

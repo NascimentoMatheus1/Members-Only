@@ -11,7 +11,7 @@ const getNewMessage = [
         };
 
         res.render('pages/newMessage_form', {
-            title: 'New Message',
+            title: 'Nova postagem',
             currentUser,
         });
     },
@@ -22,16 +22,16 @@ const validateNewMessage = [
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input the message title.')
+        .withMessage('Por favor, insira o título da mensagem.')
         .isLength({ min: 3, max: 255 })
-        .withMessage('Title must be between 3 and 255 characters'),
+        .withMessage('O título deve ter entre 3 e 255 caracteres.'),
     body('message')
         .trim()
         .escape()
         .notEmpty()
-        .withMessage('Please input your message')
+        .withMessage('Por favor, insira sua mensagem.')
         .isLength({ min: 5, max: 1000 })
-        .withMessage('Message must be between 5 and 1000 characters'),
+        .withMessage('A mensagem deve ter entre 5 e 1000 caracteres.'),
     body('username'),
 ];
 
@@ -43,7 +43,7 @@ const postSaveNewMessage = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).render('pages/newMessage_form', {
-                    title: 'New Message',
+                    title: 'Nova Postagem',
                     errors: errors.array(),
                 });
             }

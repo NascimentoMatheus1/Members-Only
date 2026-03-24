@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <%- include('../partials/head') %>
 
@@ -8,20 +8,18 @@
             <main>
                 <div class="notice">
                     <% if (locals.currentUser && !currentUser.membership_status) { %>
-                        <p><a href="/message/new">Create a new message</a></p>
+                        <p><a href="/message/new">Crie uma nova postagem</a></p>
                         <p>
-                            <a href="/user/membership">Become a member</a> to view
-                            authors of
-                            posts.</a>
+                            <a href="/user/membership">Torne-se um membro</a> para visualizar autores das postagens</a>
                         </p>
                         <% } else if (locals.currentUser && currentUser.membership_status) { %>
-                            <p>Welcome back member</p>
-                            <p><a href="/message/new">Create a new message</a></p>
+                            <p>Bem vindo de volta membro</p>
+                            <p><a href="/message/new">Crie uma nova mensagem</a></p>
                             <% } else { %>
                                 <p>
-                                    <a href="/user/login">Log in</a> or <a href="/user/sign-up">Sign up</a> to create
-                                    posts and view
-                                    authors.
+                                    <a href="/user/login">Login</a> ou <a href="/user/sign-up">Criar conta</a> para
+                                    criar postagens e visualizar
+                                    autores.
                                 </p>
                                 <% }%>
 
@@ -54,7 +52,7 @@
                                 <%if(currentUser.isAdmin){%>
                                     <form action="/message/delete/<%= post.id %>" method="POST">
                                         <button type="submit" class="delete-btn" title="Delete"
-                                            onclick="return confirm('Are you sure you want to delete this message?')">
+                                            onclick="return confirm('Tem certeza de que deseja apagar esta mensagem?')">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2">
                                                 <polyline points="3 6 5 6 21 6"></polyline>
